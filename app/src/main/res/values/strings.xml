@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Лабораторная работа 4</string>
+    <string name="login_title">Вход в систему</string>
+    <string name="hint_login">Логин</string>
+    <string name="hint_password">Пароль</string>
+    <string name="button_login">Войти</string>
+
+    <!-- Новые строки для ЛР4 -->
+    <string name="welcome_message">Привет, %1$s!</string>
+    <string name="error_empty_login">Пожалуйста, введите логин</string>
+    <string name="toast_login_prefix">Логин: </string>
+</resources>
