@@ -23,11 +23,15 @@
             </intent-filter>
         </activity>
 
-        <!-- Регистрируем новое Activity со списком -->
         <activity
             android:name=".UserListActivity"
             android:exported="false"
             android:label="Список пользователей" />
+
+        <activity
+            android:name=".FragmentContainerActivity"
+            android:exported="false"
+            android:label="Работа с фрагментами" />
 
     </application>
 

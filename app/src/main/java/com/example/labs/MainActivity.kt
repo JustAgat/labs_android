@@ -1,45 +1,48 @@
 package com.example.labs
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 
-/**
- * MainActivity - связующее звено всех лабораторных работ.
- */
 class MainActivity : AppCompatActivity() {
 
-    private val TAG = "LifecycleDemo"
+    private val getUserResult = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val selectedUser = result.data?.getStringExtra("SELECTED_USER")
+            Toast.makeText(this, "Выбран пользователь: $selectedUser", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_constraint)
 
-        val tvTitle = findViewById<TextView>(R.id.tvTitle)
         val etLogin = findViewById<EditText>(R.id.etLogin)
+        val etPassword = findViewById<EditText>(R.id.etPassword)
         val btnLogin = findViewById<Button>(R.id.btnLogin)
 
         btnLogin.setOnClickListener {
             val loginText = etLogin.text.toString()
+            val passwordText = etPassword.text.toString()
 
-            if (loginText.isNotEmpty()) {
-                // 1. Показываем приветствие ()
-                val welcomeMessage = getString(R.string.welcome_message, loginText)
-                Toast.makeText(this, welcomeMessage, Toast.LENGTH_SHORT).show()
-                tvTitle.text = welcomeMessage
-
-                // 2. Выполняем переход на экран списка ()
-                // Intent - это "намерение" перейти от текущего экрана к другому
-                val intent = Intent(this, UserListActivity::class.java)
-                startActivity(intent)
+            if (loginText.isNotEmpty() && passwordText.isNotEmpty()) {
+                // Переход на страницу со списком (FragmentContainerActivity)
+                val intent = Intent(this, FragmentContainerActivity::class.java)
+                intent.putExtra("EXTRA_LOGIN", loginText)
                 
+                // Флаг для вывода приветствия на следующем экране
+                intent.putExtra("SHOW_WELCOME", true)
+                
+                getUserResult.launch(intent)
             } else {
-                Toast.makeText(this, getString(R.string.error_empty_login), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Пожалуйста, введите логин и пароль", Toast.LENGTH_SHORT).show()
             }
         }
     }

@@ -7,29 +7,33 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 /**
- * Адаптер - это "мост" между данными и списком на экране.
- * Он знает, как превратить один элемент данных в одну строку списка.
+ * Обновленный адаптер с поддержкой кликов для возврата результата.
+ * Мы добавляем лямбда-выражение onItemClick, которое будет срабатывать при нажатии на строку.
  */
-class UserAdapter(private val users: List<String>) : 
-    RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
+class UserAdapter(
+    private val users: List<String>,
+    private val onItemClick: (String) -> Unit // Функция-слушатель клика
+) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
-    // ViewHolder хранит ссылки на элементы интерфейса одной строки
     class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvUserName: TextView = itemView.findViewById(R.id.tvUserName)
     }
 
-    // Создает новый макет строки (вызывается системой)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_user, parent, false)
         return UserViewHolder(view)
     }
 
-    // Привязывает данные к элементам интерфейса (вызывается системой)
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        holder.tvUserName.text = users[position]
+        val userName = users[position]
+        holder.tvUserName.text = userName
+
+        // Устанавливаем слушатель клика на всю строку списка
+        holder.itemView.setOnClickListener {
+            onItemClick(userName)
+        }
     }
 
-    // Возвращает общее количество элементов в списке
     override fun getItemCount(): Int = users.size
 }

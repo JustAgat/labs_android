@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Базовая тема приложения -->
-    <style name="Theme.Labs" parent="Theme.Material3.DayNight.NoActionBar">
+    <!-- Базовая тема приложения (убрали .NoActionBar) -->
+    <style name="Theme.Labs" parent="Theme.Material3.DayNight">
         <!-- Основные цвета -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorOnPrimary">@color/white</item>
