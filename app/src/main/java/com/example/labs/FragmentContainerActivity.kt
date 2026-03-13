@@ -5,16 +5,16 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.Toolbar
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.snackbar.Snackbar
 
 class FragmentContainerActivity : AppCompatActivity(), ListFragment.OnUserSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // 1. Применяем тему из настроек ДО отрисовки
         val prefs = getSharedPreferences("app_settings", Context.MODE_PRIVATE)
         val isDarkMode = prefs.getBoolean("dark_mode", false)
         if (isDarkMode) {
@@ -26,23 +26,44 @@ class FragmentContainerActivity : AppCompatActivity(), ListFragment.OnUserSelect
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fragment_container)
 
-        // Инициализируем Toolbar
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        // Убираем текст заголовка, чтобы оставить место (три точки будут в углу)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-
-        val showWelcome = intent.getBooleanExtra("SHOW_WELCOME", false)
-        val login = intent.getStringExtra("EXTRA_LOGIN") ?: ""
+        // 2. Настройка Toolbar напрямую (самый надежный способ для NoActionBar)
+        val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
         
-        if (showWelcome && login.isNotEmpty()) {
-            Snackbar.make(
-                findViewById(R.id.fragment_container),
-                "Приветствую, $login!",
-                Snackbar.LENGTH_LONG
-            ).show()
+        // Очищаем и надуваем меню
+        toolbar.menu.clear()
+        toolbar.inflateMenu(R.menu.main_menu)
+
+        // Обработка кликов по пунктам меню
+        toolbar.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.action_notes -> {
+                    startActivity(Intent(this, NotesActivity::class.java))
+                    true
+                }
+                R.id.action_settings -> {
+                    startActivity(Intent(this, SettingsActivity::class.java))
+                    true
+                }
+                R.id.action_info -> {
+                    showInfoDialog()
+                    true
+                }
+                R.id.action_logout -> {
+                    finish()
+                    true
+                }
+                else -> false
+            }
         }
 
+        // Приветствие
+        val showWelcome = intent.getBooleanExtra("SHOW_WELCOME", false)
+        val login = intent.getStringExtra("EXTRA_LOGIN") ?: ""
+        if (showWelcome && login.isNotEmpty()) {
+            Snackbar.make(findViewById(R.id.fragment_container), "Приветствую, $login!", Snackbar.LENGTH_LONG).show()
+        }
+
+        // Загрузка начального фрагмента
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, ListFragment())
@@ -50,40 +71,11 @@ class FragmentContainerActivity : AppCompatActivity(), ListFragment.OnUserSelect
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_notes -> {
-                val intent = Intent(this, NotesActivity::class.java)
-                startActivity(intent)
-                true
-            }
-            R.id.action_settings -> {
-                val intent = Intent(this, SettingsActivity::class.java)
-                startActivity(intent)
-                true
-            }
-            R.id.action_info -> {
-                showInfoDialog()
-                true
-            }
-            R.id.action_logout -> {
-                finish()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
     private fun showInfoDialog() {
         AlertDialog.Builder(this)
             .setTitle("О программе")
-            .setMessage("Это учебное приложение.")
-            .setPositiveButton("Понятно") { dialog, _ -> dialog.dismiss() }
+            .setMessage("Учебное приложение.\n\nФункции:\n- Список пользователей (БД)\n- Личные заметки\n- Настройки темы и шрифта")
+            .setPositiveButton("Понятно", null)
             .show()
     }
 
