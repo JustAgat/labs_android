@@ -23,14 +23,11 @@
             </intent-filter>
         </activity>
 
-        <!-- Регистрируем новое Activity со списком -->
         <activity
             android:name=".UserListActivity"
             android:exported="false"
             android:label="Список пользователей" />
 
-<<<<<<< Updated upstream
-=======
         <activity
             android:name=".FragmentContainerActivity"
             android:exported="false"
@@ -41,13 +38,11 @@
             android:exported="false"
             android:label="Настройки" />
 
-        <!-- РЕГИСТРАЦИЯ СТРАНИЦЫ ЗАМЕТОК (БЕЗ НЕЕ ПРИЛОЖЕНИЕ ВЫЛЕТАЕТ) -->
         <activity
             android:name=".NotesActivity"
             android:exported="false"
             android:label="Мои заметки" />
 
->>>>>>> Stashed changes
     </application>
 
 </manifest>

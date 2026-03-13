@@ -13,19 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
  * Адаптер - это "мост" между данными и списком на экране.
  * Он знает, как превратить один элемент данных в одну строку списка.
  */
-class UserAdapter(private val users: List<String>) : 
-    RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
-=======
- * Адаптер для Лабораторной работы 12.
- * Улучшен визуально и добавлена очистка текста при создании.
- */
 class UserAdapter(
     private val users: MutableList<UserData>,
     private val textSizeBonus: Int,
     private val onUpdate: (UserData) -> Unit,
     private val onDelete: (Int) -> Unit
 ) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
->>>>>>> Stashed changes
 
     // ViewHolder хранит ссылки на элементы интерфейса одной строки
     class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -43,9 +36,6 @@ class UserAdapter(
 
     // Привязывает данные к элементам интерфейса (вызывается системой)
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-<<<<<<< Updated upstream
-        holder.tvUserName.text = users[position]
-=======
         val user = users[position]
         holder.etName.setText(user.name)
         
@@ -78,7 +68,7 @@ class UserAdapter(
         holder.btnDelete.setOnClickListener {
             onDelete(user.id)
         }
->>>>>>> Stashed changes
+
     }
 
     // Возвращает общее количество элементов в списке
