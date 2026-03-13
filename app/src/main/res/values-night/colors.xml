@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Цвета для темной темы -->
+    <color name="primary_text">#FFFFFF</color> <!-- Белый текст для темной темы -->
+    <color name="background_light">#121212</color> <!-- Темный фон -->
+</resources>

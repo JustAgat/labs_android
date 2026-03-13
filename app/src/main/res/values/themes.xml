@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<<<<<<< Updated upstream
     <!-- Базовая тема приложения -->
     <style name="Theme.Labs" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Основные цвета -->
+=======
+    <style name="Theme.Labs" parent="Theme.Material3.DayNight.NoActionBar">
+>>>>>>> Stashed changes
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorOnPrimary">@color/white</item>
+        <!-- Цвет фона для всех экранов -->
+        <item name="android:windowBackground">@color/background_light</item>
     </style>
 </resources>
