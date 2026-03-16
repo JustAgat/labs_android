@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 /**
-<<<<<<< Updated upstream
  * Адаптер - это "мост" между данными и списком на экране.
  * Он знает, как превратить один элемент данных в одну строку списка.
  */

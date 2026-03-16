@@ -5,13 +5,20 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.snackbar.Snackbar
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class FragmentContainerActivity : AppCompatActivity(), ListFragment.OnUserSelectedListener {
+
+    private val TAG_RETROFIT = "RetrofitDemo"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // 1. Применяем тему из настроек ДО отрисовки
@@ -26,16 +33,20 @@ class FragmentContainerActivity : AppCompatActivity(), ListFragment.OnUserSelect
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fragment_container)
 
-        // 2. Настройка Toolbar напрямую (самый надежный способ для NoActionBar)
+        // 2. Настройка Toolbar напрямую
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
-        
-        // Очищаем и надуваем меню
         toolbar.menu.clear()
         toolbar.inflateMenu(R.menu.main_menu)
 
-        // Обработка кликов по пунктам меню
         toolbar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
+                R.id.action_posts -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, PostListFragment())
+                        .addToBackStack(null)
+                        .commit()
+                    true
+                }
                 R.id.action_notes -> {
                     startActivity(Intent(this, NotesActivity::class.java))
                     true
@@ -74,7 +85,7 @@ class FragmentContainerActivity : AppCompatActivity(), ListFragment.OnUserSelect
     private fun showInfoDialog() {
         AlertDialog.Builder(this)
             .setTitle("О программе")
-            .setMessage("Учебное приложение.\n\nФункции:\n- Список пользователей (БД)\n- Личные заметки\n- Настройки темы и шрифта")
+            .setMessage("Учебное приложение.\n\nФункции:\n- Список пользователей (БД)\n- Личные заметки\n- Настройки темы и шрифта\n- Сетевые запросы (Retrofit)")
             .setPositiveButton("Понятно", null)
             .show()
     }
