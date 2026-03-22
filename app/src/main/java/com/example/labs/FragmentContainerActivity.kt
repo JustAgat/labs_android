@@ -5,20 +5,12 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.snackbar.Snackbar
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class FragmentContainerActivity : AppCompatActivity(), ListFragment.OnUserSelectedListener {
-
-    private val TAG_RETROFIT = "RetrofitDemo"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // 1. Применяем тему из настроек ДО отрисовки
@@ -40,6 +32,13 @@ class FragmentContainerActivity : AppCompatActivity(), ListFragment.OnUserSelect
 
         toolbar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
+                R.id.action_map -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, MapFragment())
+                        .addToBackStack(null)
+                        .commit()
+                    true
+                }
                 R.id.action_posts -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, PostListFragment())
@@ -85,7 +84,7 @@ class FragmentContainerActivity : AppCompatActivity(), ListFragment.OnUserSelect
     private fun showInfoDialog() {
         AlertDialog.Builder(this)
             .setTitle("О программе")
-            .setMessage("Учебное приложение.\n\nФункции:\n- Список пользователей (БД)\n- Личные заметки\n- Настройки темы и шрифта\n- Сетевые запросы (Retrofit)")
+            .setMessage("Учебное приложение.\n\nФункции:\n- Список пользователей (БД)\n- Личные заметки\n- Настройки темы и шрифта\n- Сетевые запросы (Retrofit)\n- Карты и геолокация (Google Maps)")
             .setPositiveButton("Понятно", null)
             .show()
     }

@@ -5,6 +5,11 @@
     <!-- Задание 13.1: Разрешение на доступ в интернет -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- Задание 16.3: Разрешения на доступ к геолокации -->
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -16,6 +21,12 @@
         android:theme="@style/Theme.Labs"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+
+        <!-- Задание 16.1: API ключ для Google Maps -->
+        <!-- ВАЖНО: Для реального приложения здесь должен быть ваш ключ из Google Cloud Console -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="YOUR_API_KEY_HERE" />
 
         <activity
             android:name=".MainActivity"

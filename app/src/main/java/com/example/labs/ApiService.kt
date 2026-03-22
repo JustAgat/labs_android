@@ -1,13 +1,11 @@
 package com.example.labs
 
-import retrofit2.Call
 import retrofit2.http.GET
 
 /**
- * Лабораторная работа 13: Интерфейс для Retrofit.
- * Описываем запросы к API.
+ * Лабораторная работа 13 & 15: Интерфейс для Retrofit с поддержкой Coroutines.
  */
 interface ApiService {
     @GET("posts")
-    fun getPosts(): Call<List<Post>>
+    suspend fun getPosts(): List<Post>
 }

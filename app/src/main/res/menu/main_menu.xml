@@ -3,9 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_posts"
-        android:title="ПОСТЫ (LR14)"
+        android:id="@+id/action_map"
+        android:title="КАРТА"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_posts"
+        android:title="ПОСТЫ "
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_notes"
