@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Лаб 4</string>
+    <string name="app_name">.Labs_app</string>
     <string name="login_title">Вход в систему</string>
     <string name="hint_login">Логин</string>
     <string name="hint_password">Пароль</string>

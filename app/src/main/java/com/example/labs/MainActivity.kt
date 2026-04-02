@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main_constraint)
 
         val etLogin = findViewById<EditText>(R.id.etLogin)
-        val etPassword = findViewById<EditText>(R.id.etPassword) // Добавили поле пароля для проверки
+        val etPassword = findViewById<EditText>(R.id.etPassword) 
         val btnLogin = findViewById<Button>(R.id.btnLogin)
 
         btnLogin.setOnClickListener {
@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
             val passwordText = etPassword.text.toString()
 
             if (loginText.isNotEmpty() && passwordText.isNotEmpty()) {
-                // ПЕРЕХОД НА ГЛАВНУЮ ЧАСТЬ ПРИЛОЖЕНИЯ (Фрагменты + БД + Меню)
                 val intent = Intent(this, FragmentContainerActivity::class.java)
                 intent.putExtra("EXTRA_LOGIN", loginText)
                 intent.putExtra("SHOW_WELCOME", true)
@@ -35,5 +34,25 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Введите логин и пароль", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+        override fun onStart() {
+        super.onStart()
+        println("MY_LOG: Экран Входа - Я запускаюсь (onStart)")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        println("MY_LOG: Экран Входа - Я на экране! (onResume)")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        println("MY_LOG: Экран Входа - Меня перекрыли (onPause)")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        println("MY_LOG: Экран Входа - Я спрятался (onStop)")
     }
 }

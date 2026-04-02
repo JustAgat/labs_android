@@ -62,7 +62,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_top_button"
-        android:backgroundTint="@color/purple_500"
+        android:backgroundTint="@color/red_600"
         android:text="@string/button_login"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"

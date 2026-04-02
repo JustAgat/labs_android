@@ -27,13 +27,13 @@ class UserAdapter(
         val btnDelete: TextView = itemView.findViewById(R.id.btnDeleteUser)
     }
 
-    // Создает новый макет строки (вызывается системой)
+    // Создает новый макет строки (Создать пустую карточку, вызывается системой)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_user, parent, false)
         return UserViewHolder(view)
     }
 
-    // Привязывает данные к элементам интерфейса (вызывается системой)
+    // Привязывает данные к элементам интерфейса (наполнить карточку, вызывается системой)
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val user = users[position]
         holder.etName.setText(user.name)

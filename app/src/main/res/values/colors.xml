@@ -7,6 +7,13 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="grey_500">#FF616161</color>
+    <color name="grey_700">#FF424242</color>
+    <color name="pink_600">#d81b60</color>
+    <color name="red_600">#e53935</color>
+    <color name="blue_700">#1976d2</color>
+    <color name="green_600">#43a047</color>
+
 
     <!-- Семантические цвета для оформления -->
     <color name="primary_text">#212121</color>
